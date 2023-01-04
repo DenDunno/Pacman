@@ -32,9 +32,15 @@ void main()
      
     if (hasTexture == 1)
     {
-        base *= vec3(texture(tex, textureCoordinates));
+        vec4 textureColor = texture(tex, textureCoordinates);
+        
+        if(textureColor.a < 0.5)
+            discard;
+            
+        base *= textureColor.xyz;
     }
     
     vec3 result = (ambient + diffuse + specular) * base;
+   
     outputColor = vec4(result, 1.0);      
 }

@@ -3,7 +3,7 @@
 in vec2 textureCoordinates;
 out vec4 outputColor;
 uniform vec3 baseColor;
-//uniform sampler2D tex;
+uniform sampler2D tex;
 uniform int hasTexture = 1;
 
 void main()
@@ -12,7 +12,7 @@ void main()
     
     if (hasTexture == 1)
     {
-        //result *= vec3(texture(tex, textureCoordinates));  
+        result *= vec3(texture(tex, textureCoordinates));  
     }
     
     outputColor = result;

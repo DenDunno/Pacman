@@ -4,12 +4,18 @@ public class LevelGeneration : IGameComponent
 {
     private readonly Map _map;
     private readonly Character _character;
-    private readonly Target _target;
+    private readonly Cherry _cherry;
 
-    public LevelGeneration(Map map, Character character, Target target)
+    public LevelGeneration(Map map, Character character, Cherry cherry)
     {
         _map = map;
         _character = character;
-        _target = target;
+        _cherry = cherry;
+    }
+
+    [EditorButton]
+    private void Generate()
+    {
+        
     }
 }

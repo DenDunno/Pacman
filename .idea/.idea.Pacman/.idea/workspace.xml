@@ -5,16 +5,47 @@
     <projectFile>Pacman/Pacman.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0311082a-8856-4400-83d7-e3154f6a384c" name="Changes" comment="" />
+    <list default="true" id="0311082a-8856-4400-83d7-e3154f6a384c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Pacman/Cherry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pacman/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pacman/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameEngine" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/Character/Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/Character/Character.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/LevelGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/LevelGeneration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/PacmanWorld.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/PacmanWorld.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/Target.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/GameEngine.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/GameEngine.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/GameEngine.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/GameEngine.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/Pacman.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/Pacman.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/Pacman.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/bin/Debug/net6.0/Pacman.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/Pacman.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/ref/Pacman.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/ref/Pacman.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/refint/Pacman.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman/obj/Debug/net6.0/refint/Pacman.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/Grass/grass_AO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/Grass/grass_B.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/Grass/grass_H.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/Grass/grass_N.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/Grass/grass_R.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/crate.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Textures/wood.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/GameEngine/GameEngine/GameObject/GameObject.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Js8twCKERfh9dSz82S3AqEeJtc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -81,6 +112,8 @@
       <option name="presentableId" value="Default" />
       <updated>1672855648657</updated>
       <workItem from="1672855650209" duration="772000" />
+      <workItem from="1672918128237" duration="3094000" />
+      <workItem from="1672930881424" duration="6630000" />
     </task>
     <servers />
   </component>

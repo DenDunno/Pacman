@@ -5,36 +5,29 @@ public class PacmanWorld : WorldFactory
     protected override List<GameObject> CreateGameObjects()
     {
         Map map = new();
-        Target target = new();
-        Character character = new(target);
-        LevelGeneration levelGeneration = new(map, character, target);
+        Cherry cherry = new();
+        Character character = new(cherry);
+        LevelGeneration levelGeneration = new(map, character, cherry);
         
         return new List<GameObject>()
         {
-            CreateObject(character),
+            CreateCharacter(character),
+            GameObjectFactory.Point(map),
+            GameObjectFactory.Point(levelGeneration),
+            GameObjectFactory.Sprite(cherry, "Cherry.png"),
         };
     }
 
-    private GameObject CreateObject(IGameComponent gameComponent)
+    private GameObject CreateCharacter(Character character)
     {
-        RenderData renderData = new()
-        {
-            Mesh = MeshBuilder.Quad(1f),
-            Material = new UnlitMaterial(new LitMaterialData()
-            {
-                Base = new Texture(Paths.GetTexture("Pacman/pac_man_0.png"))
-            })
-        };
+        GameObject view = GameObjectFactory.Sprite(character, "Pacman/pac_man_0.png");
+        
+        Material material = ((Model)view.Data.Model).Material;
+        SpriteAnimation animation = new(Paths.GetTexturesInFolder("Pacman"), 0.15f, material);
+        
+        view.Data.Components.Add(animation);
+        view.Data.Components.Add(new ObjectControlling(view.Data.Transform, Input.Keyboard));
 
-        return new GameObject(new GameObjectData(gameComponent.GetType().Name, renderData.Transform)
-        {
-            Components = new List<IGameComponent>()
-            {
-                gameComponent,
-                new SpriteAnimation(Paths.GetTexturesInFolder("Pacman"), 0.15f, renderData.Material)
-            },
-            
-            Model = new Model(renderData)
-        });
+        return view;
     }
 }

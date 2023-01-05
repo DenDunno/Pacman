@@ -2,10 +2,10 @@
 
 public class Character : IGameComponent
 {
-    private readonly Target _target;
+    private readonly Cherry _cherry;
 
-    public Character(Target target)
+    public Character(Cherry cherry)
     {
-        _target = target;
+        _cherry = cherry;
     }
 }

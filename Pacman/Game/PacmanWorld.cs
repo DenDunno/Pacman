@@ -6,7 +6,7 @@ public class PacmanWorld : WorldFactory
         Transform mapTransform = new();
         Transform cherryTransform = new();
         Transform characterTransform = new();
-
+        
         Map map = new(mapTransform);
         Cherry cherry = new(cherryTransform);
         Character character = new(cherry, map, characterTransform);

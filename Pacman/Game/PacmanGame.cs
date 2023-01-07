@@ -19,12 +19,11 @@ public class PacmanGame : IGameComponent
     private void Generate()
     {
         _map.Generate(_rows, _columns);
-        PlaceAtRandomTile(_character.Transform);
-        PlaceAtRandomTile(_cherry.Transform);
-        _character.CalculatePath();
+        PlaceAtRandomFreeCell(_character.Transform);
+        RestartRound();
     }
 
-    private void PlaceAtRandomTile(Transform transform)
+    private void PlaceAtRandomFreeCell(Transform transform)
     {
         Vector2i position = _map.GetRandomFreeCell();
         transform.Position = new Vector3(position.X, position.Y, 0);
@@ -32,9 +31,15 @@ public class PacmanGame : IGameComponent
 
     void IGameComponent.Update(float deltaTime)
     {
-        if (Vector3.Distance(_character.Transform.Position, _cherry.Transform.Position) < 0.5f)
+        if (Vector3.Distance(_character.Transform.Position, _cherry.Transform.Position) < 0.01f)
         {
-            PlaceAtRandomTile(_cherry.Transform);
+            RestartRound();
         }
+    }
+
+    private void RestartRound()
+    {
+        PlaceAtRandomFreeCell(_cherry.Transform);
+        _character.CalculatePath();
     }
 }

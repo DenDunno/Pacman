@@ -38,7 +38,7 @@ public class Map : IGameComponent
 
         foreach (GameObject obstacle in _obstaclesView)
         {
-            obstacle.Dispose();
+            WorldBrowser.Instance.Destroy(obstacle);
         }
         
         _obstaclesView.Clear();

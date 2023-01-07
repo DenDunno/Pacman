@@ -4,6 +4,11 @@ public class AStarAlgorithm : IPathFindingAlgorithm
 {
     public List<Vector2i> Execute(Vector2i from, Vector2i to, List<Vector2i> obstacles)
     {
-        return null;
+        return new List<Vector2i>()
+        {
+            new(1, 1),
+            new(-1, 2),
+            to
+        };
     }
 }

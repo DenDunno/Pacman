@@ -6,6 +6,7 @@ public class AStarAlgorithm : IPathFindingAlgorithm
     {
         return new List<Vector2i>()
         {
+            from,
             new(1, 1),
             new(-1, 2),
             to

@@ -15,18 +15,17 @@ public class PacmanGame : IGameComponent
         _cherry = cherry;
     }
 
+    void IGameComponent.Initialize()
+    {
+        GenerateLevel();
+    }
+
     [EditorButton]
-    private void Generate()
+    private void GenerateLevel()
     {
         _map.Generate(_rows, _columns);
         PlaceAtRandomFreeCell(_character.Transform);
         RestartRound();
-    }
-
-    private void PlaceAtRandomFreeCell(Transform transform)
-    {
-        Vector2i position = _map.GetRandomFreeCell();
-        transform.Position = new Vector3(position.X, position.Y, 0);
     }
 
     void IGameComponent.Update(float deltaTime)
@@ -41,5 +40,11 @@ public class PacmanGame : IGameComponent
     {
         PlaceAtRandomFreeCell(_cherry.Transform);
         _character.CalculatePath();
+    }
+
+    private void PlaceAtRandomFreeCell(Transform transform)
+    {
+        Vector2i position = _map.GetRandomFreeCell();
+        transform.Position = new Vector3(position.X, position.Y, 0);
     }
 }

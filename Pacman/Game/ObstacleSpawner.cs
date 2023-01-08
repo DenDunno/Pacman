@@ -20,7 +20,7 @@ public class ObstacleSpawner
 
     public void Initialize()
     {
-        _cachedRenderData.Material.Init();
+        _cachedRenderData.Material.Initialize();
     }
 
     public GameObject Create(Vector2i position)

@@ -1,20 +1,19 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 public class Character : IGameComponent
 {
     public readonly Transform Transform;
     [EditorField] private readonly float _speed = 2f;
-    private readonly IPathFindingAlgorithm _pathFinding = new AStarAlgorithm();
-    private readonly Cherry _cherry;
-    private readonly Map _map;
+    private readonly float _rotationSpeed = 8f;
+    private readonly CharacterPathFinding _pathFinding;
     private List<Vector2i> _path = new();
-    [EditorField] private int _currentWayPoint;
+    private int _currentWayPoint;
     
     public Character(Cherry cherry, Map map, Transform transform)
     {
+        _pathFinding = new CharacterPathFinding(transform, cherry.Transform, map.Obstacles);
         Transform = transform;
-        _cherry = cherry;
-        _map = map;
     }
 
     private bool IsChasing => _currentWayPoint < _path.Count;
@@ -22,11 +21,7 @@ public class Character : IGameComponent
     
     public void CalculatePath()
     {
-        List<Vector2i> obstacles = _map.Obstacles;
-        Vector2i from = Transform.Position.ToVector2I();
-        Vector2i to = _cherry.Transform.Position.ToVector2I();
-        
-        _path = _pathFinding.Execute(from, to, obstacles);
+        _path = _pathFinding.Evaluate();
         _currentWayPoint = 0;
     }
     
@@ -34,14 +29,15 @@ public class Character : IGameComponent
     {
         if (IsChasing)
         {
+            Gizmo.Instance.DrawPath(_path, Color.Aqua, 0.1f);
+            RotateToTarget(deltaTime);
             MoveThePath(deltaTime);
-            //RotateToTarget();
         }
     }
 
     private void MoveThePath(float deltaTime)
     {
-        Transform.Position.MoveTowards(Target, _speed * deltaTime);
+        Transform.Position.MoveTowards2D(Target, _speed * deltaTime);
 
         if (Vector3.Distance(Transform.Position, Target) <= 0.001f)
         {
@@ -49,10 +45,11 @@ public class Character : IGameComponent
         }
     }
 
-    private void RotateToTarget()
+    private void RotateToTarget(float deltaTime)
     {
         Vector3 direction = Target - Transform.Position;
-        Matrix4.LookAt(Vector3.UnitX, direction, Vector3.UnitZ);
-        Transform.Rotation = Quaternion.FromEulerAngles(0, 0, direction.Z);
+        Quaternion rotation = Quaternion.FromAxisAngle(Vector3.UnitZ, MathF.Atan2(direction.Y, direction.X));
+
+        Transform.Rotation = Quaternion.Slerp(Transform.Rotation, rotation, _rotationSpeed * deltaTime);
     }
 }

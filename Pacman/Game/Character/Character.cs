@@ -29,7 +29,7 @@ public class Character : TogglingComponent
     {
         if (IsChasing)
         {
-            Gizmo.Instance.DrawPath(_path, Color.Aqua, 0.1f);
+            Gizmo.Instance.DrawPath(_path, Color.Chartreuse, -0.1f);
             RotateToTarget(deltaTime);
             MoveThePath(deltaTime);
         }

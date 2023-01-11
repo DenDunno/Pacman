@@ -1,24 +1,32 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Diagnostics;
+using OpenTK.Mathematics;
 
-public class CharacterPathFinding 
+public class CharacterPathFinding
 {
-    private readonly IPathFindingAlgorithm _pathFinding = new AStarAlgorithm();
-    private readonly HashSet<Vector2i> _freeCells;
+    private readonly IPathFindingAlgorithm _pathFinding;
     private readonly Transform _character;
     private readonly Transform _cherry;
-
+    private readonly Stopwatch _stopwatch = new();
+    
     public CharacterPathFinding(Transform character, Transform cherry, HashSet<Vector2i> freeCells)
     {
-        _freeCells = freeCells;
         _character = character;
         _cherry = cherry;
+        _pathFinding = new AStarAlgorithm(freeCells);
     }
 
     public List<Vector2i> Evaluate()
     {
-        Vector2i from = _character.Position.ToVector2I();
-        Vector2i to = _cherry.Position.ToVector2I();
+        Vector2i start = _character.Position.ToVector2I();
+        Vector2i target = _cherry.Position.ToVector2I();
         
-        return _pathFinding.Execute(from, to, _freeCells);
+        _stopwatch.Restart();
+        
+        List<Vector2i> path = _pathFinding.Execute(start, target);
+        
+        _stopwatch.Stop();
+        DengineConsole.Log($"Path evaluation took: {_stopwatch.ElapsedMilliseconds} mls");
+
+        return path;
     }
 }

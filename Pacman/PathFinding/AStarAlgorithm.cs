@@ -2,26 +2,36 @@
 
 public class AStarAlgorithm : IPathFindingAlgorithm
 {
+    private readonly Dictionary<Vector2i, float> _predictedCostToTargetFromNode = new();
+    private readonly Dictionary<Vector2i, float> _costToNode = new();
+    private readonly Dictionary<Vector2i, Vector2i> _path = new();
     private readonly HashSet<Vector2i> _closedNodes = new();
     private readonly HashSet<Vector2i> _openedNodes = new();
-    private readonly Dictionary<Vector2i, float> _costToNode = new();
-    private readonly Dictionary<Vector2i, float> _predictedCostToTargetFromNode = new();
-    private readonly Dictionary<Vector2i, Vector2i> _path = new();
-    private HashSet<Vector2i> _freeCells = null!;
+    private readonly HashSet<Vector2i> _freeCells;
     private Vector2i _target;
     private Vector2i _start;
-    
-    public List<Vector2i> Execute(Vector2i start, Vector2i target, HashSet<Vector2i> freeCells)
-    {
-       Initialize(start, target, freeCells);
 
+    public AStarAlgorithm(HashSet<Vector2i> freeCells)
+    {
+        _freeCells = freeCells;
+    }
+    
+    public List<Vector2i> Execute(Vector2i start, Vector2i target)
+    {
+       Initialize(start, target);
+       Run();
+       return BuildPath();
+    }
+
+    private void Run()
+    {
         while (_openedNodes.IsNotEmpty())
         {
             Vector2i current = GetOpenedNodeWithMinPredictedPath();
 
-            if (current == target)
+            if (current == _target)
             {
-                return BuildPath();
+                return;
             }
 
             _openedNodes.Remove(current);
@@ -35,16 +45,13 @@ public class AStarAlgorithm : IPathFindingAlgorithm
                 _openedNodes.Add(neighbour);
             }
         }
-
-        throw new Exception("Pacman doesn't have path to target. Bad maze!");
     }
 
-    private void Initialize(Vector2i start, Vector2i target, HashSet<Vector2i> freeCells)
+    private void Initialize(Vector2i start, Vector2i target)
     {
         _start = start;
         _target = target;
-        _freeCells = freeCells;
-        
+
         _closedNodes.Clear();
         _openedNodes.Clear();
         _costToNode.Clear();

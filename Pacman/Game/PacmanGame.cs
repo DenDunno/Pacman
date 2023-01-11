@@ -2,17 +2,17 @@
 
 public class PacmanGame : IGameComponent
 {
-    [EditorField] private readonly int _rows = 4;
-    [EditorField] private readonly int _columns = 4;
-    private readonly Map _map;
+    [EditorField] private readonly int _rows = 5;
+    [EditorField] private readonly int _columns = 5;
     private readonly Character _character;
     private readonly Cherry _cherry;
+    private readonly Map _map;
 
-    public PacmanGame(Map map, Character character, Cherry cherry)
+    public PacmanGame(Character character, Cherry cherry, Map map)
     {
-        _map = map;
         _character = character;
         _cherry = cherry;
+        _map = map;
     }
 
     void IGameComponent.Initialize()
@@ -24,7 +24,7 @@ public class PacmanGame : IGameComponent
     private void GenerateLevel()
     {
         _map.Generate(_rows, _columns);
-        PlaceAtRandomFreeCell(_character.Transform);
+        PlaceAtRandomFreeCell(_character.Transform, 0.001f);
         RestartRound();
     }
 
@@ -42,9 +42,9 @@ public class PacmanGame : IGameComponent
         _character.CalculatePath();
     }
 
-    private void PlaceAtRandomFreeCell(Transform transform)
+    private void PlaceAtRandomFreeCell(Transform transform, float z = 0)
     {
-        Vector2i position = _map.GetRandomFreeCell();
-        transform.Position = new Vector3(position.X, position.Y, 0);
+        Vector2i position = _map.FreeCells.GetRandom();
+        transform.Position = new Vector3(position.X, position.Y, z);
     }
 }

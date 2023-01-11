@@ -12,6 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="..\Resources\Shaders\circle.glsl">
+        <Link>Shaders\circle.glsl</Link>
+      </Content>
       <Content Include="..\Resources\Shaders\lit.glsl">
         <Link>Shaders\lit.glsl</Link>
       </Content>

@@ -2,5 +2,5 @@
 
 public interface IPathFindingAlgorithm
 {
-    List<Vector2i> Execute(Vector2i from, Vector2i to, List<Vector2i> obstacles);
+    List<Vector2i> Execute(Vector2i start, Vector2i target, HashSet<Vector2i> freeCells);
 }

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class Character : IGameComponent
+public class Character : TogglingComponent
 {
     public readonly Transform Transform;
     [EditorField] private readonly float _speed = 2f;
@@ -12,7 +12,7 @@ public class Character : IGameComponent
     
     public Character(Cherry cherry, Map map, Transform transform)
     {
-        _pathFinding = new CharacterPathFinding(transform, cherry.Transform, map.Obstacles);
+        _pathFinding = new CharacterPathFinding(transform, cherry.Transform, map.FreeCells);
         Transform = transform;
     }
 
@@ -24,8 +24,8 @@ public class Character : IGameComponent
         _path = _pathFinding.Evaluate();
         _currentWayPoint = 0;
     }
-    
-    void IGameComponent.Update(float deltaTime)
+
+    protected override void OnUpdate(float deltaTime)
     {
         if (IsChasing)
         {

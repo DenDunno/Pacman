@@ -10,7 +10,7 @@ public class PacmanWorld : WorldFactory
         Map map = new(mapTransform);
         Cherry cherry = new(cherryTransform);
         Character character = new(cherry, map, characterTransform);
-        PacmanGame pacmanGame = new(map, character, cherry);
+        PacmanGame pacmanGame = new(character, cherry, map);
 
         return new List<GameObject>()
         {

@@ -5,7 +5,7 @@ public class Character : TogglingComponent
 {
     public readonly Transform Transform;
     [EditorField] private readonly float _speed = 2f;
-    private readonly float _rotationSpeed = 8f;
+    private readonly float _rotationSpeed = 9f;
     private readonly CharacterPathFinding _pathFinding;
     private List<Vector2i> _path = new();
     private int _currentWayPoint;

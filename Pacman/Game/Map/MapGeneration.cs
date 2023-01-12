@@ -2,10 +2,10 @@
 
 public class MapGeneration
 {
-    private readonly List<Vector2i> _obstacles;
+    private readonly HashSet<Vector2i> _obstacles;
     private readonly HashSet<Vector2i> _freeCells;
 
-    public MapGeneration(List<Vector2i> obstacles, HashSet<Vector2i> freeCells)
+    public MapGeneration(HashSet<Vector2i> obstacles, HashSet<Vector2i> freeCells)
     {
         _obstacles = obstacles;
         _freeCells = freeCells;
@@ -35,11 +35,14 @@ public class MapGeneration
 
     private void BuildMaze(int rows, int columns)
     {
-        int centre = columns / 2;
-
         for (int i = 2; i < rows - 1; ++i)
         {
-            _obstacles.Add(new Vector2i(centre, i));
+            _obstacles.Add(new Vector2i(columns / 2, i));
+        }
+        
+        for (int i = 2; i < columns - 1; ++i)
+        {
+            _obstacles.Add(new Vector2i(i, rows / 2));
         }
     }
 

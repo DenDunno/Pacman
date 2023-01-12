@@ -3,11 +3,11 @@
 public class Map : IGameComponent
 {
     public readonly HashSet<Vector2i> FreeCells = new();
-    private readonly List<Vector2i> _obstacles = new();
+    private readonly HashSet<Vector2i> _obstacles = new();
     private readonly List<GameObject> _obstaclesView = new();
     private readonly ObstacleSpawner _obstacleSpawner;
     private readonly MapGeneration _mapGeneration;
-    
+
     public Map(Transform transform)
     {
         _obstacleSpawner = new ObstacleSpawner(transform);
@@ -41,11 +41,27 @@ public class Map : IGameComponent
 
     private void SpawnObstacles()
     {
-        foreach (Vector2i position in _obstacles)
+        foreach (Vector2i obstacle in _obstacles)
         {
-            GameObject obstacle = _obstacleSpawner.Create(position);
-            WorldBrowser.Instance.Add(obstacle);
-            _obstaclesView.Add(obstacle);
+            GameObject view = _obstacleSpawner.Create(obstacle, GetNeighbours(obstacle));
+            WorldBrowser.Instance.Add(view);
+            _obstaclesView.Add(view);
         }
+    }
+
+    private TileNeighbours GetNeighbours(Vector2i tile)
+    {
+        return new TileNeighbours()
+        {
+            Top = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X)),
+            Left = _obstacles.Contains(new Vector2i(tile.Y, tile.X - 1)),
+            Right = _obstacles.Contains(new Vector2i(tile.Y, tile.X + 1)),
+            Bottom = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X)),
+            
+            TopLeft = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X - 1)),
+            TopRight = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X + 1)),
+            BottomLeft = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X - 1)),
+            BottomRight = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X + 1))
+        };
     }
 }

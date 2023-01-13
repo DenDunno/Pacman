@@ -2,70 +2,72 @@
 
 public class ObstacleSpawner
 {
-    private readonly RenderData _cachedRenderData;
     private readonly Transform _parent;
     private readonly AutoTiling _autoTiling;
+    private readonly RenderData _cachedRenderData = new()
+    {
+        Mesh = MeshBuilder.Quad(1f)
+    };
 
     public ObstacleSpawner(Transform parent)
     {
         _parent = parent;
-        _autoTiling = new AutoTiling(new Dictionary<int, Texture>()
+        _autoTiling = new AutoTiling(new AutoTile[] 
         {
-            {5, new Texture(Paths.GetTexture("Tiles/tile013.png"))},
-            {68, new Texture(Paths.GetTexture("Tiles/tile002.png"))},
-            {17, new Texture(Paths.GetTexture("Tiles/tile012.png"))},
-            {0, new Texture(Paths.GetTexture("Tiles/tile036.png"))},
-            {16, new Texture(Paths.GetTexture("Tiles/tile024.png"))},
-            {64, new Texture(Paths.GetTexture("Tiles/tile003.png"))},
-            {1, new Texture(Paths.GetTexture("Tiles/tile000.png"))},
-            {4, new Texture(Paths.GetTexture("Tiles/tile001.png"))},
-            {65, new Texture(Paths.GetTexture("Tiles/tile014.png"))},
-            {193, new Texture(Paths.GetTexture("Tiles/tile014.png"))},
-            {23, new Texture(Paths.GetTexture("Tiles/tile015.png"))},
-            {29, new Texture(Paths.GetTexture("Tiles/tile015.png"))},
-            {80, new Texture(Paths.GetTexture("Tiles/tile026.png"))},
-            {112, new Texture(Paths.GetTexture("Tiles/tile026.png"))},
-            {20, new Texture(Paths.GetTexture("Tiles/tile025.png"))},
-            {28, new Texture(Paths.GetTexture("Tiles/tile025.png"))},
-            {85, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {7, new Texture(Paths.GetTexture("Tiles/tile013.png"))},
-            {71, new Texture(Paths.GetTexture("Tiles/tile016.png"))},
-            {197, new Texture(Paths.GetTexture("Tiles/tile016.png"))},
-            {199, new Texture(Paths.GetTexture("Tiles/tile016.png"))},
-            {124, new Texture(Paths.GetTexture("Tiles/tile027.png"))},
-            {92, new Texture(Paths.GetTexture("Tiles/tile027.png"))},
-            {116, new Texture(Paths.GetTexture("Tiles/tile027.png"))},
-            {69, new Texture(Paths.GetTexture("Tiles/tile016.png"))},
-            {21, new Texture(Paths.GetTexture("Tiles/tile015.png"))},
-            {31, new Texture(Paths.GetTexture("Tiles/tile015.png"))},
-            {84, new Texture(Paths.GetTexture("Tiles/tile027.png"))},
-            {209, new Texture(Paths.GetTexture("Tiles/tile028.png"))},
-            {113, new Texture(Paths.GetTexture("Tiles/tile028.png"))},
-            {255, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {241, new Texture(Paths.GetTexture("Tiles/tile028.png"))},
-            {215, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {247, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {253, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {127, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {223, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {246, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {81, new Texture(Paths.GetTexture("Tiles/tile028.png"))},
-            {125, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {245, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {221, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {93, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {95, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {213, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {117, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {119, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
-            {87, new Texture(Paths.GetTexture("Tiles/tile037.png"))},
+            new(5, GetTexturePath(13)),
+            new(68, GetTexturePath(02)),
+            new(17, GetTexturePath(12)),
+            new(0, GetTexturePath(36)),
+            new(16, GetTexturePath(24)),
+            new(64, GetTexturePath(03)),
+            new(1, GetTexturePath(00)),
+            new(4, GetTexturePath(01)),
+            new(65, GetTexturePath(14)),
+            new(193, GetTexturePath(14)),
+            new(23, GetTexturePath(15)),
+            new(29, GetTexturePath(15)),
+            new(80, GetTexturePath(26)),
+            new(112, GetTexturePath(26)),
+            new(20, GetTexturePath(25)),
+            new(28, GetTexturePath(25)),
+            new(85, GetTexturePath(37)),
+            new(7, GetTexturePath(13)),
+            new(71, GetTexturePath(16)),
+            new(197, GetTexturePath(16)),
+            new(199, GetTexturePath(16)),
+            new(124, GetTexturePath(27)),
+            new(92, GetTexturePath(27)),
+            new(116, GetTexturePath(27)),
+            new(69, GetTexturePath(16)),
+            new(21, GetTexturePath(15)),
+            new(31, GetTexturePath(15)),
+            new(84, GetTexturePath(27)),
+            new(209, GetTexturePath(28)),
+            new(113, GetTexturePath(28)),
+            new(255, GetTexturePath(37)),
+            new(241, GetTexturePath(28)),
+            new(215, GetTexturePath(37)),
+            new(247, GetTexturePath(37)),
+            new(253, GetTexturePath(37)),
+            new(127, GetTexturePath(37)),
+            new(223, GetTexturePath(37)),
+            new(246, GetTexturePath(37)),
+            new(81, GetTexturePath(28)),
+            new(125, GetTexturePath(37)),
+            new(245, GetTexturePath(37)),
+            new(221, GetTexturePath(37)),
+            new(93, GetTexturePath(37)),
+            new(95, GetTexturePath(37)),
+            new(213, GetTexturePath(37)),
+            new(117, GetTexturePath(37)),
+            new(119, GetTexturePath(37)),
+            new(87, GetTexturePath(37)),
         });
-        
-        _cachedRenderData = new RenderData()
-        {
-            Mesh = MeshBuilder.Quad(1f),
-            Material = new UnlitMaterial(new LitMaterialData())
-        };
+    }
+
+    private string GetTexturePath(int index)
+    {
+        return Paths.GetTexture($"Tiles/tile0{index:D2}.png");
     }
 
     public GameObject Create(Vector2i position, TileNeighbours tileNeighbours)

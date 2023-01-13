@@ -2,8 +2,8 @@
 
 public class PacmanGame : IGameComponent
 {
-    [EditorField] private readonly int _rows = 10;
-    [EditorField] private readonly int _columns = 10;
+    [EditorField] private readonly int _rows = 3;
+    [EditorField] private readonly int _columns = 3;
     private readonly Character _character;
     private readonly Cherry _cherry;
     private readonly Map _map;
@@ -44,7 +44,7 @@ public class PacmanGame : IGameComponent
 
     private void PlaceAtRandomFreeCell(Transform transform, float z = 0)
     {
-        Vector2i position = _map.FreeCells.GetRandom();
+        Vector2i position = _map.FreeCells.GetRandomElement();
         transform.Position = new Vector3(position.X, position.Y, z);
     }
 }

@@ -29,14 +29,14 @@ public class AStarAlgorithm : IPathFindingAlgorithm
         {
             Vector2i current = GetOpenedNodeWithMinPredictedPath();
 
+            _openedNodes.Remove(current);
+            _closedNodes.Add(current);
+            
             if (current == _target)
             {
                 return;
             }
-
-            _openedNodes.Remove(current);
-            _closedNodes.Add(current);
-
+            
             foreach (Vector2i neighbour in GetNeighbours(current))
             {
                 _path[neighbour] = current;
@@ -68,12 +68,15 @@ public class AStarAlgorithm : IPathFindingAlgorithm
         List<Vector2i> result = new();
         Vector2i node = _target;
 
-        while (node != _start)
+        if (_closedNodes.Contains(_target)) // success
         {
-            result.Add(node);
-            node = _path[node];
+            while (node != _start)
+            {
+                result.Add(node);
+                node = _path[node];
+            }   
         }
-        
+
         result.Add(_start);
         result.Reverse();
         

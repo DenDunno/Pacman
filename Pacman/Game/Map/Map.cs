@@ -18,7 +18,7 @@ public class Map : IGameComponent
     {
         Release();
         _mapGeneration.Evaluate(rows, columns);
-        SpawnObstacles();
+        GenerateView();
     }
 
     private void Release()
@@ -34,7 +34,7 @@ public class Map : IGameComponent
         _obstaclesView.Clear();
     }
 
-    private void SpawnObstacles()
+    private void GenerateView()
     {
         foreach (Vector2i obstacle in _obstacles)
         {

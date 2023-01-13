@@ -13,11 +13,6 @@ public class Map : IGameComponent
         _obstacleSpawner = new ObstacleSpawner(transform);
         _mapGeneration = new MapGeneration(_obstacles, FreeCells);
     }
-    
-    void IGameComponent.Initialize()
-    {
-        _obstacleSpawner.Initialize();
-    }
 
     public void Generate(int rows, int columns)
     {
@@ -53,15 +48,15 @@ public class Map : IGameComponent
     {
         return new TileNeighbours()
         {
-            Top = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X)),
-            Left = _obstacles.Contains(new Vector2i(tile.Y, tile.X - 1)),
-            Right = _obstacles.Contains(new Vector2i(tile.Y, tile.X + 1)),
-            Bottom = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X)),
+            Top = _obstacles.Contains(new Vector2i(tile.X, tile.Y + 1)),
+            Left = _obstacles.Contains(new Vector2i(tile.X - 1, tile.Y)),
+            Right = _obstacles.Contains(new Vector2i(tile.X + 1, tile.Y)),
+            Bottom = _obstacles.Contains(new Vector2i(tile.X, tile.Y - 1)),
             
-            TopLeft = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X - 1)),
-            TopRight = _obstacles.Contains(new Vector2i(tile.Y + 1, tile.X + 1)),
-            BottomLeft = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X - 1)),
-            BottomRight = _obstacles.Contains(new Vector2i(tile.Y - 1, tile.X + 1))
+            TopLeft = _obstacles.Contains(new Vector2i(tile.X - 1, tile.Y + 1)),
+            TopRight = _obstacles.Contains(new Vector2i(tile.X + 1, tile.Y + 1)),
+            BottomLeft = _obstacles.Contains(new Vector2i(tile.X - 1, tile.Y - 1)),
+            BottomRight = _obstacles.Contains(new Vector2i(tile.X + 1, tile.Y - 1))
         };
     }
 }

@@ -2,8 +2,8 @@
 
 public class PacmanGame : IGameComponent
 {
-    [EditorField] private readonly int _rows = 5;
-    [EditorField] private readonly int _columns = 5;
+    [EditorField] private readonly int _rows = 10;
+    [EditorField] private readonly int _columns = 10;
     private readonly Character _character;
     private readonly Cherry _cherry;
     private readonly Map _map;

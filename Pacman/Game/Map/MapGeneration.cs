@@ -35,14 +35,17 @@ public class MapGeneration
 
     private void BuildMaze(int rows, int columns)
     {
-        for (int i = 2; i < rows - 1; ++i)
+        Random random = new();
+
+        for (int i = 1; i < rows; ++i)
         {
-            _obstacles.Add(new Vector2i(columns / 2, i));
-        }
-        
-        for (int i = 2; i < columns - 1; ++i)
-        {
-            _obstacles.Add(new Vector2i(i, rows / 2));
+            for (int j = 1; j < columns; ++j)
+            {
+                if (random.Next(2) == 1)
+                {
+                    _obstacles.Add(new Vector2i(j, i));
+                }
+            }
         }
     }
 

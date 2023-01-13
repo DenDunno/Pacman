@@ -21,8 +21,8 @@ public class Character : TogglingComponent
     
     public void CalculatePath()
     {
-        _path = _pathFinding.Evaluate();
-        _currentWayPoint = 0;
+        // _path = _pathFinding.Evaluate();
+        // _currentWayPoint = 0;
     }
 
     protected override void OnUpdate(float deltaTime)

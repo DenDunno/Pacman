@@ -36,6 +36,7 @@ public class PacmanGame : IGameComponent
         }
     }
 
+    [EditorButton]
     private void RestartRound()
     {
         PlaceAtRandomFreeCell(_cherry.Transform);

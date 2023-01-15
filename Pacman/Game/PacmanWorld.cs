@@ -17,6 +17,7 @@ public class PacmanWorld : WorldFactory
             GameObjectFactory.Point(pacmanGame),
             GameObjectFactory.Point(map, mapTransform),
             CreateCharacter(character, characterTransform),
+            GameObjectFactory.CreateCamera(new OrthographicProjection()),
             GameObjectFactory.Sprite(cherry, Paths.GetTexture("Cherry.png"), cherryTransform),
         };
     }

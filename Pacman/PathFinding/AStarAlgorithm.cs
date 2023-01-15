@@ -1,26 +1,35 @@
 ﻿using OpenTK.Mathematics;
 
-public class AStarAlgorithm : IPathFindingAlgorithm
+public class AStarAlgorithm : PathFindingAlgorithm
 {
     private readonly Dictionary<Vector2i, float> _predictedCostToTargetFromNode = new();
     private readonly Dictionary<Vector2i, float> _costToNode = new();
     private readonly Dictionary<Vector2i, Vector2i> _path = new();
     private readonly HashSet<Vector2i> _closedNodes = new();
     private readonly HashSet<Vector2i> _openedNodes = new();
-    private readonly HashSet<Vector2i> _freeCells;
-    private Vector2i _target;
-    private Vector2i _start;
 
-    public AStarAlgorithm(HashSet<Vector2i> freeCells)
+    public AStarAlgorithm(HashSet<Vector2i> freeCells) : base(freeCells)
     {
-        _freeCells = freeCells;
     }
-    
-    public List<Vector2i> Execute(Vector2i start, Vector2i target)
+
+    protected override List<Vector2i> OnExecute()
     {
-       Initialize(start, target);
+       Initialize();
        Run();
        return BuildPath();
+    }
+
+    private void Initialize()
+    {
+        _closedNodes.Clear();
+        _openedNodes.Clear();
+        _costToNode.Clear();
+        _predictedCostToTargetFromNode.Clear();
+        _path.Clear();
+        
+        _openedNodes.Add(Start);
+        _costToNode[Start] = 0;
+        _predictedCostToTargetFromNode[Start] = _costToNode[Start] + GetRealDistanceToTarget(Start);
     }
 
     private void Run()
@@ -32,7 +41,7 @@ public class AStarAlgorithm : IPathFindingAlgorithm
             _openedNodes.Remove(current);
             _closedNodes.Add(current);
             
-            if (current == _target)
+            if (current == Target)
             {
                 return;
             }
@@ -47,37 +56,21 @@ public class AStarAlgorithm : IPathFindingAlgorithm
         }
     }
 
-    private void Initialize(Vector2i start, Vector2i target)
-    {
-        _start = start;
-        _target = target;
-
-        _closedNodes.Clear();
-        _openedNodes.Clear();
-        _costToNode.Clear();
-        _predictedCostToTargetFromNode.Clear();
-        _path.Clear();
-        
-        _openedNodes.Add(start);
-        _costToNode[start] = 0;
-        _predictedCostToTargetFromNode[start] = _costToNode[start] + GetRealDistanceToTarget(start);
-    }
-
     private List<Vector2i> BuildPath()
     {
         List<Vector2i> result = new();
-        Vector2i node = _target;
+        Vector2i node = Target;
 
-        if (_closedNodes.Contains(_target)) // success
+        if (_closedNodes.Contains(Target)) // success
         {
-            while (node != _start)
+            while (node != Start)
             {
                 result.Add(node);
                 node = _path[node];
             }   
         }
 
-        result.Add(_start);
+        result.Add(Start);
         result.Reverse();
         
         return result;
@@ -97,12 +90,12 @@ public class AStarAlgorithm : IPathFindingAlgorithm
 
     private void TryAddNeighbour(List<Vector2i> container, Vector2i node)
     {
-        if (_closedNodes.Contains(node) == false && _freeCells.Contains(node))
+        if (_closedNodes.Contains(node) == false && FreeCells.Contains(node))
         {
             container.Add(node);
         }
     }
-    
+
     private Vector2i GetOpenedNodeWithMinPredictedPath()
     {
         float min = float.MaxValue;
@@ -119,9 +112,9 @@ public class AStarAlgorithm : IPathFindingAlgorithm
 
         return node;
     }
-    
+
     private float GetRealDistanceToTarget(Vector2i node)
     {
-        return Vector2.Distance(_target, node);
+        return Vector2.Distance(Target, node);
     }
 }

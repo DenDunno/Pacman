@@ -3,7 +3,7 @@
 public class RecursiveBacktracker
 {
     private readonly HashSet<Vector2i> _freeCells;
-    private readonly Stack<Vector2i> _passedTiles = new();
+    private readonly Stack<Vector2i> _openedTiles = new();
     private readonly List<Vector2i> _neighbours = new();
     private Vector2i _mapMaxTile;
     
@@ -14,13 +14,13 @@ public class RecursiveBacktracker
 
     public void Evaluate(int rows, int columns)
     {
-        Random random = new();
+        Random random = new(); 
         Vector2i current = MapGraphToMap(random.Next(0, columns), random.Next(0, rows));
         _mapMaxTile = MapGraphToMap(columns - 1, rows - 1);
-        _passedTiles.Push(current);
+        _openedTiles.Push(current);
         _freeCells.Add(current);
         
-        while (_passedTiles.IsNotEmpty())
+        while (_openedTiles.IsNotEmpty())
         {
             if (TryFindNeighbours(current))
             {
@@ -29,13 +29,13 @@ public class RecursiveBacktracker
                 Vector2i intermediateCell = current + direction / 2;
                 current = neighbour;
 
-                _passedTiles.Push(current);
+                _openedTiles.Push(current);
                 _freeCells.Add(neighbour);
                 _freeCells.Add(intermediateCell);
             }
             else
             {
-                current = _passedTiles.Pop();
+                current = _openedTiles.Pop();
             }
         }
     }

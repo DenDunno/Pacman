@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 
 public class CharacterPathFinding
 {
-    private readonly IPathFindingAlgorithm _pathFinding;
+    private readonly PathFindingAlgorithm _pathFinding;
     private readonly Transform _character;
     private readonly Transform _cherry;
     private readonly Stopwatch _stopwatch = new();

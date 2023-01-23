@@ -13,7 +13,10 @@ public class MazeView
         _obstacleSpawner = new ObstacleSpawner();
         _cachedRenderData = new RenderData()
         {
-            Material = new UnlitMaterial(new LitMaterialData()),
+            Material = new UnlitMaterial(new LitMaterialData()
+            {
+                Base = new Texture(Paths.GetTexture("tiles.png"))
+            }),
             Transform = parent
         };
     }
@@ -30,6 +33,8 @@ public class MazeView
         _view.Data.Model.Dispose();
         _view.Data.Model = new Model(_cachedRenderData);
         _view.Data.Model.Initialize();
+        _view.Data.Components.Clear();
+        _view.Data.Components.Add(_view.Data.Model);
     }
     
     private Mesh GetMazeMesh()

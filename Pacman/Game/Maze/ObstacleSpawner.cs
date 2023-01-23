@@ -2,75 +2,31 @@
 
 public class ObstacleSpawner
 {
-    private readonly AutoTiling _autoTiling;
-    private readonly RenderData _cachedRenderData = new()
+    private readonly int _tileSize = 32;
+    private readonly Vector2i _textureSize = new(160, 128);
+    private readonly IReadOnlyDictionary<int, int> _bitmapToSpriteIndex = new Dictionary<int, int>()
     {
-        Mesh = MeshBuilder.Quad(1f)
+        {05, 11}, {68, 02}, {17, 05}, {00, 15}, {16, 00}, {64, 03},
+        {01, 10}, {04, 01}, {65, 12}, {193, 12}, {23, 08}, {29, 08}, 
+        {80, 07}, {112, 07}, {20, 06}, {28, 06}, {85, 16}, {07, 11}, 
+        {71, 13}, {197, 13}, {199, 13}, {124, 09}, {92, 09}, {116, 09}, 
+        {69, 13}, {21, 08}, {31, 08}, {84, 09}, {209, 14}, {113, 14},
+        {255, 16}, {241, 14}, {215, 16}, {247, 16}, {253, 16}, {127, 16}, 
+        {223, 16}, {246, 16}, {81, 14}, {125, 16}, {245, 16}, {221, 16}, 
+        {93, 16}, {95, 16}, {213, 16}, {117, 16}, {119, 16}, {87, 16},
     };
-
-    public ObstacleSpawner()
-    {
-        _autoTiling = new AutoTiling(new AutoTile[] 
-        {
-            new(5, GetTexturePath(13)),
-            new(68, GetTexturePath(02)),
-            new(17, GetTexturePath(12)),
-            new(0, GetTexturePath(36)),
-            new(16, GetTexturePath(24)),
-            new(64, GetTexturePath(03)),
-            new(1, GetTexturePath(00)),
-            new(4, GetTexturePath(01)),
-            new(65, GetTexturePath(14)),
-            new(193, GetTexturePath(14)),
-            new(23, GetTexturePath(15)),
-            new(29, GetTexturePath(15)),
-            new(80, GetTexturePath(26)),
-            new(112, GetTexturePath(26)),
-            new(20, GetTexturePath(25)),
-            new(28, GetTexturePath(25)),
-            new(85, GetTexturePath(37)),
-            new(7, GetTexturePath(13)),
-            new(71, GetTexturePath(16)),
-            new(197, GetTexturePath(16)),
-            new(199, GetTexturePath(16)),
-            new(124, GetTexturePath(27)),
-            new(92, GetTexturePath(27)),
-            new(116, GetTexturePath(27)),
-            new(69, GetTexturePath(16)),
-            new(21, GetTexturePath(15)),
-            new(31, GetTexturePath(15)),
-            new(84, GetTexturePath(27)),
-            new(209, GetTexturePath(28)),
-            new(113, GetTexturePath(28)),
-            new(255, GetTexturePath(37)),
-            new(241, GetTexturePath(28)),
-            new(215, GetTexturePath(37)),
-            new(247, GetTexturePath(37)),
-            new(253, GetTexturePath(37)),
-            new(127, GetTexturePath(37)),
-            new(223, GetTexturePath(37)),
-            new(246, GetTexturePath(37)),
-            new(81, GetTexturePath(28)),
-            new(125, GetTexturePath(37)),
-            new(245, GetTexturePath(37)),
-            new(221, GetTexturePath(37)),
-            new(93, GetTexturePath(37)),
-            new(95, GetTexturePath(37)),
-            new(213, GetTexturePath(37)),
-            new(117, GetTexturePath(37)),
-            new(119, GetTexturePath(37)),
-            new(87, GetTexturePath(37)),
-        });
-    }
-
-    private string GetTexturePath(int index)
-    {
-        return Paths.GetTexture($"Tiles/tile0{index:D2}.png");
-    }
 
     public MeshData Create(Vector2i position, TileNeighbours tileNeighbours)
     {
+        int bitmapIndex = AutoTiling.GetBitmapIndex(ref tileNeighbours);
+        int spriteSheetIndex = _bitmapToSpriteIndex[bitmapIndex];
+        
+        int xLocation = (spriteSheetIndex * _tileSize) % _textureSize.X;
+        int yLocation = (spriteSheetIndex * _tileSize - xLocation) / _textureSize.X * _tileSize;
+        Vector2 location = new Vector2i(xLocation, yLocation);
+
         MeshData meshData = new QuadMeshData(1, position.ToVector3()).GetMeshData();
+        meshData.TextureCoordinates = SubTexture.FromLocationSize(_textureSize, location, _tileSize);
 
         return meshData;
     }

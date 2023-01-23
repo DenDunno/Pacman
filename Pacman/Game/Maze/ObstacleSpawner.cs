@@ -2,16 +2,14 @@
 
 public class ObstacleSpawner
 {
-    private readonly Transform _parent;
     private readonly AutoTiling _autoTiling;
     private readonly RenderData _cachedRenderData = new()
     {
         Mesh = MeshBuilder.Quad(1f)
     };
 
-    public ObstacleSpawner(Transform parent)
+    public ObstacleSpawner()
     {
-        _parent = parent;
         _autoTiling = new AutoTiling(new AutoTile[] 
         {
             new(5, GetTexturePath(13)),
@@ -70,11 +68,10 @@ public class ObstacleSpawner
         return Paths.GetTexture($"Tiles/tile0{index:D2}.png");
     }
 
-    public GameObject Create(Vector2i position, TileNeighbours tileNeighbours)
+    public MeshData Create(Vector2i position, TileNeighbours tileNeighbours)
     {
-        _cachedRenderData.Transform = new Transform(new Vector3(position.X, position.Y, 0), _parent);
-        _cachedRenderData.Material = _autoTiling.GetMaterial(tileNeighbours);
-       
-        return GameObjectFactory.WithRenderData(_cachedRenderData);
+        MeshData meshData = new QuadMeshData(1, position.ToVector3()).GetMeshData();
+
+        return meshData;
     }
 }

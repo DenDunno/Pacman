@@ -1,12 +1,12 @@
 ﻿using OpenTK.Mathematics;
 
-public class MapGeneration
+public class MazeGeneration
 {
     private readonly HashSet<Vector2i> _obstacles;
     private readonly HashSet<Vector2i> _freeCells;
     private readonly RecursiveBacktracker _recursiveBacktracker;
     
-    public MapGeneration(HashSet<Vector2i> obstacles, HashSet<Vector2i> freeCells)
+    public MazeGeneration(HashSet<Vector2i> obstacles, HashSet<Vector2i> freeCells)
     {
         _obstacles = obstacles;
         _freeCells = freeCells;

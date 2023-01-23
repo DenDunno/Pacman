@@ -1,21 +1,21 @@
 ﻿
-public class PacmanWorld : WorldFactory
+public class PacmanWorld : IWorldFactory
 {
-    protected override List<GameObject> CreateGameObjects()
+    public List<GameObject> CreateGameObjects(PlayerInput playerInput)
     {
         Transform mapTransform = new();
         Transform cherryTransform = new();
         Transform characterTransform = new();
         
-        Map map = new(mapTransform);
+        Maze maze = new(mapTransform);
         Cherry cherry = new(cherryTransform);
-        Character character = new(cherry, map, characterTransform);
-        PacmanGame pacmanGame = new(character, cherry, map);
+        Character character = new(cherry, maze, characterTransform);
+        PacmanGame pacmanGame = new(character, cherry, maze);
 
         return new List<GameObject>()
         {
             GameObjectFactory.Point(pacmanGame),
-            GameObjectFactory.Point(map, mapTransform),
+            GameObjectFactory.Point(maze, mapTransform),
             CreateCharacter(character, characterTransform),
             GameObjectFactory.CreateCamera(new OrthographicProjection()),
             GameObjectFactory.Sprite(cherry, Paths.GetTexture("Cherry.png"), cherryTransform),

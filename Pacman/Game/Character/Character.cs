@@ -10,9 +10,9 @@ public class Character : TogglingComponent
     private List<Vector2i> _path = new();
     private int _currentWayPoint;
     
-    public Character(Cherry cherry, Map map, Transform transform)
+    public Character(Cherry cherry, Maze maze, Transform transform)
     {
-        _pathFinding = new CharacterPathFinding(transform, cherry.Transform, map.FreeCells);
+        _pathFinding = new CharacterPathFinding(transform, cherry.Transform, maze.FreeCells);
         Transform = transform;
     }
 

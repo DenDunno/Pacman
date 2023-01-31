@@ -24,31 +24,31 @@ public class MazeView
     public void Instantiate()
     {
         _view = new GameObject(new GameObjectData("Maze view", _cachedRenderData.Transform));
-        WorldBrowser.Instance.Add(_view);
+        WorldBrowser.Add(_view);
     }
 
     public void Regenerate()
     {
         _cachedRenderData.Mesh = GetMazeMesh();
-        _view.Data.Model.Dispose();
-        _view.Data.Model = new Model(_cachedRenderData);
-        _view.Data.Model.Initialize();
+        _view.Data.Drawable.Dispose();
+        _view.Data.Drawable = new Model(_cachedRenderData);
+        _view.Data.Drawable.Initialize();
         _view.Data.Components.Clear();
-        _view.Data.Components.Add(_view.Data.Model);
+        _view.Data.Components.Add(_view.Data.Drawable);
     }
     
     private Mesh GetMazeMesh()
     {
-        MeshData[] meshData = new MeshData[_obstacles.Count];
+        Mesh[] tiles = new Mesh[_obstacles.Count];
         
         int index = 0;
         foreach (Vector2i obstacle in _obstacles)
         {
-            meshData[index] = _obstacleSpawner.Create(obstacle, GetNeighbours(obstacle));
+            tiles[index] = _obstacleSpawner.Create(obstacle, GetNeighbours(obstacle));
             ++index;
         }
 
-        return MeshBuilder.BuildMesh(StaticBatching.Concatenate(meshData));
+        return StaticBatching.Concatenate(tiles);
     }
     
     private TileNeighbours GetNeighbours(Vector2i tile)

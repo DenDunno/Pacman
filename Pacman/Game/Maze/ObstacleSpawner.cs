@@ -16,7 +16,7 @@ public class ObstacleSpawner
         {93, 16}, {95, 16}, {213, 16}, {117, 16}, {119, 16}, {87, 16},
     };
 
-    public MeshData Create(Vector2i position, TileNeighbours tileNeighbours)
+    public Mesh Create(Vector2i position, TileNeighbours tileNeighbours)
     {
         int bitmapIndex = AutoTiling.GetBitmapIndex(ref tileNeighbours);
         int spriteSheetIndex = _bitmapToSpriteIndex[bitmapIndex];
@@ -24,10 +24,17 @@ public class ObstacleSpawner
         int xLocation = (spriteSheetIndex * _tileSize) % _textureSize.X;
         int yLocation = (spriteSheetIndex * _tileSize - xLocation) / _textureSize.X * _tileSize;
         Vector2 location = new Vector2i(xLocation, yLocation);
+        Vector2[] texCoord = SubTexture.FromLocationSize(_textureSize, location, _tileSize);
+        
+        Mesh mesh = new QuadMeshData(1, position.ToVector3()).Build();
+        mesh.Attributes["TexCoord"].Data = new[]
+        {
+            texCoord[0].X, texCoord[0].Y, 
+            texCoord[1].X, texCoord[1].Y, 
+            texCoord[2].X, texCoord[2].Y, 
+            texCoord[3].X, texCoord[3].Y, 
+        };
 
-        MeshData meshData = new QuadMeshData(1, position.ToVector3()).GetMeshData();
-        meshData.TextureCoordinates = SubTexture.FromLocationSize(_textureSize, location, _tileSize);
-
-        return meshData;
+        return mesh;
     }
 }

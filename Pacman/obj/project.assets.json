@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "ConsoleTables/2.4.2": {
         "type": "package",
         "dependencies": {
@@ -16,6 +16,12 @@
           "lib/netcoreapp3.1/ConsoleTables.dll": {
             "related": ".pdb"
           }
+        }
+      },
+      "Fody/6.6.4": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "ImGui.NET/1.88.0": {
@@ -52,6 +58,25 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "MethodTimer.Fody/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.6.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/MethodTimer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/MethodTimer.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -397,10 +422,11 @@
       },
       "GameEngine/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "ConsoleTables": "2.4.2",
           "ImGui.NET": "1.88.0",
+          "MethodTimer.Fody": "3.2.1",
           "OpenTK": "4.7.5",
           "StbImageSharp": "2.27.11"
         },
@@ -431,6 +457,39 @@
         "lib/netstandard1.3/ConsoleTables.pdb"
       ]
     },
+    "Fody/6.6.4": {
+      "sha512": "vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A==",
+      "type": "package",
+      "path": "fody/6.6.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Fody.targets",
+        "fody.6.6.4.nupkg.sha512",
+        "fody.nuspec",
+        "netclassictask/Fody.dll",
+        "netclassictask/FodyCommon.dll",
+        "netclassictask/FodyHelpers.dll",
+        "netclassictask/FodyIsolated.dll",
+        "netclassictask/Mono.Cecil.Pdb.dll",
+        "netclassictask/Mono.Cecil.Pdb.pdb",
+        "netclassictask/Mono.Cecil.Rocks.dll",
+        "netclassictask/Mono.Cecil.Rocks.pdb",
+        "netclassictask/Mono.Cecil.dll",
+        "netclassictask/Mono.Cecil.pdb",
+        "netstandardtask/Fody.dll",
+        "netstandardtask/FodyCommon.dll",
+        "netstandardtask/FodyHelpers.dll",
+        "netstandardtask/FodyIsolated.dll",
+        "netstandardtask/Mono.Cecil.Pdb.dll",
+        "netstandardtask/Mono.Cecil.Pdb.pdb",
+        "netstandardtask/Mono.Cecil.Rocks.dll",
+        "netstandardtask/Mono.Cecil.Rocks.pdb",
+        "netstandardtask/Mono.Cecil.dll",
+        "netstandardtask/Mono.Cecil.pdb"
+      ]
+    },
     "ImGui.NET/1.88.0": {
       "sha512": "5pYlZ4juw1+HaWD8sM8aPqUFcS3b1SHDCXBxfZ02ID96SKHp1icAKKiS0VJA9MbSATQGQd9lAAkY5p8JZGzomA==",
       "type": "package",
@@ -449,6 +508,27 @@
         "runtimes/osx/native/libcimgui.dylib",
         "runtimes/win-x64/native/cimgui.dll",
         "runtimes/win-x86/native/cimgui.dll"
+      ]
+    },
+    "MethodTimer.Fody/3.2.1": {
+      "sha512": "7xhZXDc9PkaNPAKSw99+GAEown4T0xOH2Y+5NNMOgGTSLcpQSk/vZIb42QErbydOnFcMNV0LjJNPum4YiDF9pg==",
+      "type": "package",
+      "path": "methodtimer.fody/3.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MethodTimer.Fody.props",
+        "lib/net452/MethodTimer.dll",
+        "lib/net452/MethodTimer.xml",
+        "lib/netstandard1.0/MethodTimer.dll",
+        "lib/netstandard1.0/MethodTimer.xml",
+        "lib/netstandard2.0/MethodTimer.dll",
+        "lib/netstandard2.0/MethodTimer.xml",
+        "lib/netstandard2.1/MethodTimer.dll",
+        "lib/netstandard2.1/MethodTimer.xml",
+        "methodtimer.fody.3.2.1.nupkg.sha512",
+        "methodtimer.fody.nuspec",
+        "weaver/MethodTimer.Fody.dll"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -1266,7 +1346,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
       "GameEngine >= 1.0.0"
     ]
   },
@@ -1286,14 +1366,14 @@
         "C:\\Users\\38097\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {
             "C:\\Natalya\\Denis\\Pacman\\GameEngine\\GameEngine\\GameEngine.csproj": {
               "projectPath": "C:\\Natalya\\Denis\\Pacman\\GameEngine\\GameEngine\\GameEngine.csproj"
@@ -1308,8 +1388,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "imports": [
           "net461",
           "net462",
@@ -1321,30 +1401,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.12, 6.0.12]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.12, 6.0.12]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.12, 6.0.12]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.12, 6.0.12]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\38097\\.dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

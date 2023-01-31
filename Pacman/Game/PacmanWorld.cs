@@ -1,13 +1,13 @@
 ﻿
 public class PacmanWorld : IWorldFactory
 {
-    public List<GameObject> CreateGameObjects(PlayerInput playerInput)
+    public List<GameObject> CreateGameObjects()
     {
-        Transform mapTransform = new();
+        Transform mazeTransform = new();
         Transform cherryTransform = new();
         Transform characterTransform = new();
         
-        Maze maze = new(mapTransform);
+        Maze maze = new(mazeTransform);
         Cherry cherry = new(cherryTransform);
         Character character = new(cherry, maze, characterTransform);
         PacmanGame pacmanGame = new(character, cherry, maze);
@@ -15,7 +15,7 @@ public class PacmanWorld : IWorldFactory
         return new List<GameObject>()
         {
             GameObjectFactory.Point(pacmanGame),
-            GameObjectFactory.Point(maze, mapTransform),
+            GameObjectFactory.Point(maze, mazeTransform),
             CreateCharacter(character, characterTransform),
             GameObjectFactory.CreateCamera(new OrthographicProjection()),
             GameObjectFactory.Sprite(cherry, Paths.GetTexture("Cherry.png"), cherryTransform),
@@ -25,7 +25,7 @@ public class PacmanWorld : IWorldFactory
     private GameObject CreateCharacter(Character character, Transform transform)
     {
         GameObject view = GameObjectFactory.Sprite(character, Paths.GetTexture("Pacman/pac_man_0.png"), transform);
-        Material material = ((Model)view.Data.Model).Material;
+        Material material = ((Model)view.Data.Drawable).Material;
         SpriteAnimation animation = new(Paths.GetTexturesInFolder("Pacman"), 0.15f, material);
         
         view.Data.Components.Add(animation);

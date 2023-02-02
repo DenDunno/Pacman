@@ -5,11 +5,12 @@ public class DijkstraAlgorithm : PathFindingAlgorithm
     private readonly Dictionary<Vector2i, float> _minDistanceToEveryVertex = new();
     private readonly Dictionary<Vector2i, bool> _visitedVertices = new();
     
-    public DijkstraAlgorithm(HashSet<Vector2i> freeCells) : base(freeCells)
+    public DijkstraAlgorithm(Transform transform, Transform target, HashSet<Vector2i> freeCells) 
+        : base(transform, target, freeCells)
     {
     }
 
-    protected override List<Vector2i> OnExecute()
+    public override List<Vector2i> Execute()
     {
         Initialize();
         Run();

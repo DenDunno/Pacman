@@ -8,11 +8,12 @@ public class AStarAlgorithm : PathFindingAlgorithm
     private readonly HashSet<Vector2i> _closedNodes = new();
     private readonly HashSet<Vector2i> _openedNodes = new();
 
-    public AStarAlgorithm(HashSet<Vector2i> freeCells) : base(freeCells)
+    public AStarAlgorithm(Transform transform, Transform target, HashSet<Vector2i> freeCells) 
+        : base(transform, target, freeCells)
     {
     }
 
-    protected override List<Vector2i> OnExecute()
+    public override List<Vector2i> Execute()
     {
        Initialize();
        Run();

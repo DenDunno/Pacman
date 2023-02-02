@@ -3,21 +3,18 @@
 public abstract class PathFindingAlgorithm
 {
     protected readonly HashSet<Vector2i> FreeCells;
-    protected Vector2i Target;
-    protected Vector2i Start;
+    private readonly Transform _transform;
+    private readonly Transform _target;
 
-    protected PathFindingAlgorithm(HashSet<Vector2i> freeCells)
+    protected PathFindingAlgorithm(Transform transform, Transform target, HashSet<Vector2i> freeCells)
     {
+        _transform = transform;
+        _target = target;
         FreeCells = freeCells;
     }
 
-    public List<Vector2i> Execute(Vector2i start, Vector2i target)
-    {
-        Start = start;
-        Target = target;
+    protected Vector2i Target => _target.Position.ToVector2I();
+    protected Vector2i Start => _transform.Position.ToVector2I();
 
-        return OnExecute();
-    }
-
-    protected abstract List<Vector2i> OnExecute();
+    public abstract List<Vector2i> Execute();
 }

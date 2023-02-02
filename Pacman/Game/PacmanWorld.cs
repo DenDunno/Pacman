@@ -3,22 +3,18 @@ public class PacmanWorld : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Transform mazeTransform = new();
-        Transform cherryTransform = new();
-        Transform characterTransform = new();
+        PacmanTransforms transforms = new();
+        PacmanModel model = new(transforms);
         
-        Maze maze = new(mazeTransform);
-        Cherry cherry = new(cherryTransform);
-        Character character = new(cherry, maze, characterTransform);
-        PacmanGame pacmanGame = new(character, cherry, maze);
-
         return new List<GameObject>()
         {
-            GameObjectFactory.Point(pacmanGame),
-            GameObjectFactory.Point(maze, mazeTransform),
-            CreateCharacter(character, characterTransform),
+            GameObjectFactory.Point(model.Game),
+            GameObjectFactory.Point(model.Maze, transforms.Maze),
+            CreateCharacter(model.Character, transforms.Character),
             GameObjectFactory.CreateCamera(new OrthographicProjection()),
-            GameObjectFactory.Sprite(cherry, Paths.GetTexture("Cherry.png"), cherryTransform),
+            GameObjectFactory.Sprite(model.Cherry, Paths.GetTexture("Cherry.png"), transforms.Cherry),
+            GameObjectFactory.Sprite(model.Ghost1, Paths.GetTexture("Ghosts/blue_0.png"), transforms.Ghost1),
+            GameObjectFactory.Sprite(model.Ghost2, Paths.GetTexture("Ghosts/orange_0.png"), transforms.Ghost2),
         };
     }
 

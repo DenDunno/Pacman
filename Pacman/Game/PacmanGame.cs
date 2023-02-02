@@ -5,13 +5,15 @@ public class PacmanGame : IGameComponent
     [EditorField] private readonly int _rows = 3;
     [EditorField] private readonly int _columns = 3;
     private readonly Character _character;
+    private readonly Ghost[] _ghosts;
     private readonly Cherry _cherry;
     private readonly Maze _maze;
 
-    public PacmanGame(Character character, Cherry cherry, Maze maze)
+    public PacmanGame(Character character, Cherry cherry, Ghost[] ghosts, Maze maze)
     {
         _character = character;
         _cherry = cherry;
+        _ghosts = ghosts;
         _maze = maze;
     }
 
@@ -19,7 +21,6 @@ public class PacmanGame : IGameComponent
     private void GenerateLevel()
     {
         _maze.Generate(_rows, _columns);
-        PlaceAtRandomFreeCell(_character.Transform, 0.001f);
         RestartRound();
     }
 
@@ -34,7 +35,14 @@ public class PacmanGame : IGameComponent
     [EditorButton]
     private void RestartRound()
     {
+        PlaceAtRandomFreeCell(_character.Transform, 0.001f);
         PlaceAtRandomFreeCell(_cherry.Transform);
+
+        foreach (Ghost ghost in _ghosts)
+        {
+            PlaceAtRandomFreeCell(ghost.Transform);
+        }
+        
         _character.CalculatePath();
     }
 
